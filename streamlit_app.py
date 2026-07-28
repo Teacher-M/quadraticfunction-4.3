@@ -342,7 +342,7 @@ draw_graph(
     x_domain=[-10, 10],
     y_domain=[-50, 50],
     graph_key="explore4",
-    height=450
+    height=800
 )
 
 st.info(
