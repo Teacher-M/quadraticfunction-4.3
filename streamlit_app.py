@@ -10,12 +10,13 @@ st.set_page_config(
 st.title("📈 이차함수 y = ax²의 그래프 탐구")
 
 st.write(
-    "a의 값을 바꾸면서 그래프의 방향과 벌어진 정도가 "
-    "어떻게 달라지는지 관찰해 보세요."
+    "a의 값을 바꾸면서 y = x²의 그래프와 비교해 보고, "
+    "그래프의 모양이 어떻게 달라지는지 관찰해 보세요."
 )
 
 st.info(
-    "그래프를 충분히 관찰한 뒤, 발견한 내용을 종이 활동지에 기록하세요."
+    "이 웹 앱에서는 그래프의 변화를 눈으로 관찰합니다. "
+    "발견한 내용과 그 이유는 활동지와 모둠 토의에서 정리하세요."
 )
 
 
@@ -39,7 +40,7 @@ def function_name(a):
 def make_graph_rows(a_values, x_min, x_max):
     rows = []
 
-    # 0.05 간격으로 부드러운 곡선 만들기
+    # 0.05 간격으로 값을 만들어 부드러운 곡선 표시
     start = int(x_min * 20)
     end = int(x_max * 20)
 
@@ -59,7 +60,7 @@ def make_graph_rows(a_values, x_min, x_max):
 
 
 # --------------------------------------------------
-# x축과 y축이 보이는 그래프
+# 좌표축이 드러나는 그래프
 # --------------------------------------------------
 
 def draw_graph(
@@ -67,7 +68,7 @@ def draw_graph(
     x_domain,
     y_domain,
     graph_key,
-    height=540
+    height=560
 ):
     rows = make_graph_rows(
         a_values=a_values,
@@ -208,48 +209,39 @@ def draw_graph(
 # ==================================================
 
 st.divider()
-st.header("탐구 1. a의 부호와 그래프의 방향")
+st.header("탐구 1. y = x²와 y = ax² 비교")
 
 st.write(
-    "a의 값을 양수와 음수로 바꾸면서 그래프의 모양을 관찰해 보세요."
+    "y = x²의 그래프를 기준으로, "
+    "a의 값을 바꾸면서 두 그래프의 모양을 비교해 보세요."
 )
 
 a1 = st.slider(
-    "a의 값",
-    min_value=-5,
+    "비교할 a의 값",
+    min_value=1,
     max_value=5,
-    value=1,
+    value=2,
     step=1,
     key="a1"
 )
 
-if a1 == 0:
-    st.warning(
-        "a가 0이면 y = 0이므로 이차함수가 아닙니다. "
-        "0이 아닌 값을 선택하세요."
-    )
-
+if a1 == 1:
+    compare_values_1 = [1]
 else:
-    st.subheader(f"현재 함수: {function_name(a1)}")
+    compare_values_1 = [1, a1]
 
-    # 부호에 따라 원점의 위치를 다르게 배치
-    if a1 > 0:
-        y_range_1 = [-3, 22]
-    else:
-        y_range_1 = [-22, 3]
+draw_graph(
+    a_values=compare_values_1,
+    x_domain=[-3, 3],
+    y_domain=[-2, 16],
+    graph_key="explore1",
+    height=570
+)
 
-    draw_graph(
-        a_values=[a1],
-        x_domain=[-4, 4],
-        y_domain=y_range_1,
-        graph_key="explore1",
-        height=560
-    )
-
-    st.info(
-        "💭 a가 양수일 때와 음수일 때 "
-        "그래프의 모양은 어떻게 달라지나요?"
-    )
+st.info(
+    "💭 a의 값이 1, 2, 3, 4, 5로 커질수록 "
+    "y = ax²의 그래프는 어떻게 달라지나요?"
+)
 
 
 # ==================================================
@@ -257,38 +249,22 @@ else:
 # ==================================================
 
 st.divider()
-st.header("탐구 2. y = x²와 y = ax²의 모양 비교")
+st.header("탐구 2. 여러 양수 a의 그래프 비교")
 
 st.write(
-    "좌표평면의 범위는 그대로 두고, "
-    "a의 값만 바꾸면서 두 그래프를 비교해 보세요."
+    "a의 값이 서로 다른 여러 그래프를 한 좌표평면에서 비교해 보세요."
 )
-
-a2 = st.slider(
-    "비교할 a의 값",
-    min_value=1,
-    max_value=5,
-    value=2,
-    step=1,
-    key="a2"
-)
-
-if a2 == 1:
-    compare_values = [1]
-else:
-    compare_values = [1, a2]
 
 draw_graph(
-    a_values=compare_values,
+    a_values=[1, 2, 3, 4, 5],
     x_domain=[-3, 3],
     y_domain=[-2, 16],
     graph_key="explore2",
-    height=560
+    height=610
 )
 
 st.info(
-    "💭 a의 값이 커질수록 두 그래프의 모양은 "
-    "어떻게 달라지나요?"
+    "💭 여러 그래프의 공통점과 차이점을 찾아보세요."
 )
 
 
@@ -297,23 +273,48 @@ st.info(
 # ==================================================
 
 st.divider()
-st.header("탐구 3. 여러 그래프를 한눈에 비교")
+st.header("탐구 3. a의 부호와 그래프의 방향")
 
 st.write(
-    "a의 값이 다른 여러 그래프를 한 좌표평면에서 비교해 보세요."
+    "a의 값을 양수와 음수로 바꾸면서 "
+    "그래프가 향하는 방향을 비교해 보세요."
 )
 
-draw_graph(
-    a_values=[1, 2, 3, 4, 5],
-    x_domain=[-3, 3],
-    y_domain=[-2, 16],
-    graph_key="explore3",
-    height=600
+a3 = st.slider(
+    "a의 값",
+    min_value=-5,
+    max_value=5,
+    value=1,
+    step=1,
+    key="a3"
 )
 
-st.info(
-    "💭 여러 그래프에서 공통점과 차이점을 찾아보세요."
-)
+if a3 == 0:
+    st.warning(
+        "a가 0이면 y = 0이므로 이차함수가 아닙니다. "
+        "0이 아닌 값을 선택하세요."
+    )
+
+else:
+    st.subheader(f"현재 함수: {function_name(a3)}")
+
+    if a3 > 0:
+        y_range_3 = [-3, 22]
+    else:
+        y_range_3 = [-22, 3]
+
+    draw_graph(
+        a_values=[a3],
+        x_domain=[-4, 4],
+        y_domain=y_range_3,
+        graph_key="explore3",
+        height=570
+    )
+
+    st.info(
+        "💭 a가 양수일 때와 음수일 때 "
+        "그래프의 모양은 어떻게 달라지나요?"
+    )
 
 
 # ==================================================
@@ -324,7 +325,7 @@ st.divider()
 st.header("탐구 4. y = ax²와 y = -ax² 비교")
 
 st.write(
-    "a와 -a를 계수로 갖는 두 그래프의 관계를 관찰해 보세요."
+    "절댓값은 같고 부호만 다른 두 그래프의 관계를 관찰해 보세요."
 )
 
 a4 = st.slider(
@@ -341,7 +342,7 @@ draw_graph(
     x_domain=[-3, 3],
     y_domain=[-16, 16],
     graph_key="explore4",
-    height=600
+    height=610
 )
 
 st.info(
@@ -352,6 +353,6 @@ st.info(
 st.divider()
 
 st.caption(
-    "※ 웹 앱에서는 그래프를 관찰하고, "
-    "발견한 내용은 종이 활동지와 모둠 토의에서 정리하세요."
+    "※ 앱에서는 그래프의 변화를 먼저 발견하고, "
+    "활동지에서는 표와 좌표를 이용하여 그 이유를 설명해 보세요."
 )
