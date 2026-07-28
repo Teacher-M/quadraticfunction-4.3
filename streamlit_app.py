@@ -339,10 +339,10 @@ a4 = st.slider(
 
 draw_graph(
     a_values=[a4, -a4],
-    x_domain=[-10, 10],
-    y_domain=[-50, 50],
+    x_domain=[-6, 6],
+    y_domain=[-30, 30],
     graph_key="explore4",
-    height=800
+    height=610
 )
 
 st.info(
