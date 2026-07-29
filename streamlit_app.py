@@ -235,7 +235,7 @@ draw_graph(
     x_domain=[-3, 3],
     y_domain=[-2, 16],
     graph_key="explore1",
-    height=570
+    height=610
 )
 
 st.info(
